@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="beige">#F6F4EB</color>
+    <color name="baby_blue">#91C8E4</color>
+    <color name="action_bar_blue">#4682A9</color>
+    <color name="dark_blue">#053B50</color>
+    <color name="dark_theme_darker_blue">#04001a</color>
+    <color name="dark_gradient_lightblue">#2387a6</color>
+</resources>

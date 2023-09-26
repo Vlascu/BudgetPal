@@ -1,0 +1,17 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="Base.Theme.BudgetPal" parent="Theme.AppCompat.DayNight">
+        <!-- Customize your light theme here. -->
+        <item name="colorPrimary">@color/baby_blue</item>
+        <item name="colorPrimaryDark">@color/baby_blue</item>\
+        <item name="colorButtonNormal">@color/baby_blue</item>
+        <item name="android:windowBackground">@drawable/bright_gradient</item>
+        <item name="android:textColor">@color/dark_blue</item>
+        <item name="colorAccent">@color/white</item>
+        <item name="colorSecondary">@color/white</item>
+        <item name="android:buttonCornerRadius">20dp</item>
+        <item name="registerBoxColor">@color/white</item>
+    </style>
+
+    <style name="Theme.BudgetPal" parent="Base.Theme.BudgetPal" />
+</resources>

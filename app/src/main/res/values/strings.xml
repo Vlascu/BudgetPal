@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">BudgetPal</string>
+    <string name="register_email">Email</string>
+    <string name="register_password">Password</string>
+    <string name="register_button">Register</string>
+    <string name="register_already_user">Already an user?</string>
+    <string name="login_button">Login</string>
+    <string name="login_to_register">Don\'t have an account?</string>
+    <string name="menu_info">Account Info</string>
+    <string name="menu_accounts">Accounts</string>
+    <string name="revenue">Revenue</string>
+    <string name="spending">Spending</string>
+    <string name="summary">Summary</string>
+    <string name="budgets">Budgets</string>
+    <string name="accounts">Accounts</string>
+    <string name="top_account">Top account:</string>
+    <string name="account_value">Account value:</string>
+    <string name="current_balance">Current balance: </string>
+    <string name="monthly_view">Monthly View</string>
+    <string name="menu_logout">Log Out</string>
+    <string name="menu_delete">Delete Account</string>
+    <string name="account_name">Account name</string>
+    <string name="product_name">Product name</string>
+    <string name="value">Value</string>
+    <string name="accounts_to_delete">To delete an entry just tap on it</string>
+    <string name="no_account_in_tab">0 accounts inserted</string>
+    <string name="daily_view">Daily view</string>
+</resources>
