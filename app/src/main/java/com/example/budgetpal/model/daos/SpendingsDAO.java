@@ -32,4 +32,9 @@ public interface SpendingsDAO {
 
     @Query("SELECT product_value FROM SpendingsTable WHERE user_id==:userID AND category==:productCategory")
     LiveData<List<BigDecimal>> getAllValuesBasedOnCategory(int userID, String productCategory);
+
+    @Query("DELETE FROM SpendingsTable WHERE user_id==:userID AND day==:current_day " +
+            "AND month==:current_month AND year==:current_year AND product_name==:productName")
+    void deleteSpending(int userID, int current_day, String current_month, int current_year, String productName);
+
 }

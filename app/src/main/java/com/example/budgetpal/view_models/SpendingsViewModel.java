@@ -37,5 +37,14 @@ public class SpendingsViewModel extends AndroidViewModel {
     {
         return databaseRepository.getTotalMoneyFromDB(user_id);
     }
+    public void deleteSpending(int user_id, int day, String month, int year, String product_name)
+    {
+        databaseRepository.deleteSpending(user_id,day,month,year, product_name);
+    }
+    public void updateTotalMoney(int user_id, BigDecimal value)
+    {
+        databaseRepository.updateTotalMoney(value,user_id);
+    }
+
 
 }

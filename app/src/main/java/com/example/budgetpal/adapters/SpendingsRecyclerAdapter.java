@@ -9,11 +9,15 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.budgetpal.R;
 import com.example.budgetpal.data_models.SpendingsModel;
 import com.example.budgetpal.model.tables.SpendingsTable;
+import com.example.budgetpal.view_models.SpendingsViewModel;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -21,10 +25,25 @@ import java.util.ArrayList;
 public class SpendingsRecyclerAdapter extends RecyclerView.Adapter<SpendingsRecyclerAdapter.MyViewHolder>{
 
     private ArrayList<SpendingsTable> data;
+    private SpendingsViewModel spendingsViewModel;
+    private int year, day, user_id;
+    private String month;
 
+    private BigDecimal product_value;
 
-    public SpendingsRecyclerAdapter(ArrayList<SpendingsTable> data) {
+    private String product_name;
+
+    private LifecycleOwner lifecycleOwner;
+
+    public SpendingsRecyclerAdapter(ArrayList<SpendingsTable> data, SpendingsViewModel spendingsViewModel, int year, int day, String month, int user_id
+    , LifecycleOwner lifecycleOwner) {
         this.data = data;
+        this.spendingsViewModel = spendingsViewModel;
+        this.year = year;
+        this.day = day;
+        this.month = month;
+        this.user_id = user_id;
+        this.lifecycleOwner = lifecycleOwner;
     }
 
     @NonNull
@@ -39,6 +58,8 @@ public class SpendingsRecyclerAdapter extends RecyclerView.Adapter<SpendingsRecy
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.item_name.setText(data.get(position).getProduct_name());
         holder.item_value.setText(String.format("%.2f",data.get(position).getProduct_value()));
+        product_name=holder.item_name.getText().toString();
+        product_value=new BigDecimal(holder.item_value.getText().toString().replace(",","."));
     }
 
     @Override
@@ -59,7 +80,20 @@ public class SpendingsRecyclerAdapter extends RecyclerView.Adapter<SpendingsRecy
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //Todo: delete method
+                   int adapterPosition = getAdapterPosition();
+                   if(adapterPosition!=RecyclerView.NO_POSITION)
+                   {
+                        spendingsViewModel.deleteSpending(user_id,day,month,year,product_name);
+                       LiveData<BigDecimal> totalMoney = spendingsViewModel.getTotalMoney(user_id);
+                       totalMoney.observe(lifecycleOwner, new Observer<BigDecimal>() {
+                           @Override
+                           public void onChanged(BigDecimal value) {
+                                totalMoney.removeObserver(this);
+                                spendingsViewModel.updateTotalMoneyInDB(user_id,value.add(product_value));
+                           }
+                       });
+                       notifyItemRemoved(adapterPosition);
+                   }
                 }
             });
         }

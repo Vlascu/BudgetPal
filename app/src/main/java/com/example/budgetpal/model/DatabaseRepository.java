@@ -145,15 +145,6 @@ public class DatabaseRepository {
         });
     }
 
-    public void deleteSpending(SpendingsTable spendingsTable) {
-        ExecutorService executorService = Executors.newSingleThreadExecutor();
-        executorService.execute(new Runnable() {
-            @Override
-            public void run() {
-                spendingsDAO.delete(spendingsTable);
-            }
-        });
-    }
 
     public LiveData<List<SpendingsTable>> getAllSpendingsFromDate(int user_id, String month, int day, int year) {
         return spendingsDAO.getAllSpendingsFromDate(user_id, month, day, year);
@@ -251,5 +242,15 @@ public class DatabaseRepository {
 
     public LiveData<List<BigDecimal>> getAllValuesBasedOnCategory(int user_id, String category) {
         return spendingsDAO.getAllValuesBasedOnCategory(user_id, category);
+    }
+
+    public void deleteSpending(int user_id, int day, String month, int year, String product_name) {
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                spendingsDAO.deleteSpending(user_id, day, month, year, product_name);
+            }
+        });
     }
 }
