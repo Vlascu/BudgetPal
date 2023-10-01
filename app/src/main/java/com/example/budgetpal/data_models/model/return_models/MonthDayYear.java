@@ -1,4 +1,4 @@
-package com.example.budgetpal.model.return_models;
+package com.example.budgetpal.data_models.model.return_models;
 
 public class MonthDayYear {
     private String month;

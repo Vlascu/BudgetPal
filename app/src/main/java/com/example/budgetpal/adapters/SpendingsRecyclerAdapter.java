@@ -1,22 +1,18 @@
 package com.example.budgetpal.adapters;
 
-import android.content.Context;
-import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.budgetpal.R;
-import com.example.budgetpal.data_models.SpendingsModel;
-import com.example.budgetpal.model.tables.SpendingsTable;
+import com.example.budgetpal.data_models.model.tables.SpendingsTable;
 import com.example.budgetpal.view_models.SpendingsViewModel;
 
 import java.math.BigDecimal;

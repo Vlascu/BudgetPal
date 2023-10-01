@@ -3,8 +3,6 @@ package com.example.budgetpal.adapters;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.ScaleAnimation;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,11 +12,8 @@ import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.budgetpal.R;
-import com.example.budgetpal.activities.Accounts;
-import com.example.budgetpal.data_models.SpendingsModel;
-import com.example.budgetpal.model.tables.Revenue;
+import com.example.budgetpal.data_models.model.tables.Revenue;
 import com.example.budgetpal.view_models.AccountsViewModel;
-import com.example.budgetpal.view_models.MainActivityViewModel;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

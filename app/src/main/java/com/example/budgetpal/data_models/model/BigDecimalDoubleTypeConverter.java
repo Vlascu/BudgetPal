@@ -1,4 +1,4 @@
-package com.example.budgetpal.model;
+package com.example.budgetpal.data_models.model;
 
 import androidx.room.TypeConverter;
 import androidx.room.TypeConverters;

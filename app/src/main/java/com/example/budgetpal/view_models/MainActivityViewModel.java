@@ -5,16 +5,13 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
-import com.example.budgetpal.model.DatabaseRepository;
-import com.example.budgetpal.model.tables.Dates;
-import com.example.budgetpal.model.tables.Revenue;
+import com.example.budgetpal.data_models.model.DatabaseRepository;
+import com.example.budgetpal.data_models.model.tables.Dates;
+import com.example.budgetpal.data_models.model.tables.Revenue;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Stack;
 
 public class MainActivityViewModel extends AndroidViewModel {
 

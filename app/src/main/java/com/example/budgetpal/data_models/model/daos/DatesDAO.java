@@ -1,13 +1,12 @@
-package com.example.budgetpal.model.daos;
+package com.example.budgetpal.data_models.model.daos;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
 
-import com.example.budgetpal.model.tables.Dates;
+import com.example.budgetpal.data_models.model.tables.Dates;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Dao

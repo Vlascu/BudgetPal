@@ -19,7 +19,7 @@ import android.widget.Toast;
 import com.example.budgetpal.R;
 import com.example.budgetpal.adapters.SpendingsRecyclerAdapter;
 import com.example.budgetpal.dialogs.AddDialog;
-import com.example.budgetpal.model.tables.SpendingsTable;
+import com.example.budgetpal.data_models.model.tables.SpendingsTable;
 import com.example.budgetpal.view_models.SpendingsViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 

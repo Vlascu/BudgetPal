@@ -15,7 +15,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.budgetpal.R;
-import com.example.budgetpal.model.tables.User;
+import com.example.budgetpal.data_models.model.tables.User;
 import com.example.budgetpal.view_models.LoginViewModel;
 
 public class Login extends AppCompatActivity {

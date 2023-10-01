@@ -1,16 +1,14 @@
-package com.example.budgetpal.model.daos;
+package com.example.budgetpal.data_models.model.daos;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
-import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.example.budgetpal.model.tables.User;
+import com.example.budgetpal.data_models.model.tables.User;
 
 import java.math.BigDecimal;
-import java.util.Stack;
 
 @Dao
 public interface UserDAO {

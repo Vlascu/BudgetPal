@@ -5,10 +5,9 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.ViewModel;
 
-import com.example.budgetpal.model.DatabaseRepository;
-import com.example.budgetpal.model.tables.User;
+import com.example.budgetpal.data_models.model.DatabaseRepository;
+import com.example.budgetpal.data_models.model.tables.User;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

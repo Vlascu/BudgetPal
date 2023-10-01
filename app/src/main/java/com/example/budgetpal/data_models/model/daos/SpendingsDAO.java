@@ -1,4 +1,4 @@
-package com.example.budgetpal.model.daos;
+package com.example.budgetpal.data_models.model.daos;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
@@ -7,9 +7,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.example.budgetpal.model.return_models.MonthDayYear;
-import com.example.budgetpal.model.tables.Revenue;
-import com.example.budgetpal.model.tables.SpendingsTable;
+import com.example.budgetpal.data_models.model.tables.SpendingsTable;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -36,5 +34,8 @@ public interface SpendingsDAO {
     @Query("DELETE FROM SpendingsTable WHERE user_id==:userID AND day==:current_day " +
             "AND month==:current_month AND year==:current_year AND product_name==:productName")
     void deleteSpending(int userID, int current_day, String current_month, int current_year, String productName);
+
+    @Query("SELECT product_value FROM SpendingsTable WHERE user_id==:userID AND month==:searchedMonth AND year==:searchedYear")
+    LiveData<List<BigDecimal>> getAllSpendingFromMonth(int userID, String searchedMonth, int searchedYear);
 
 }

@@ -1,4 +1,4 @@
-package com.example.budgetpal.model.tables;
+package com.example.budgetpal.data_models.model.tables;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;

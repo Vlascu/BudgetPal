@@ -1,4 +1,4 @@
-package com.example.budgetpal.model.daos;
+package com.example.budgetpal.data_models.model.daos;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
@@ -7,9 +7,10 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.example.budgetpal.model.return_models.MonthYear;
-import com.example.budgetpal.model.tables.Revenue;
+import com.example.budgetpal.data_models.model.return_models.MonthYear;
+import com.example.budgetpal.data_models.model.tables.Revenue;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Dao
@@ -40,4 +41,7 @@ public interface RevenueDAO {
     @Query("SELECT * FROM Revenue WHERE user_id==:userID AND month==:searched_month AND year==:searched_year " +
             "ORDER BY account_amount DESC LIMIT 1")
     LiveData<Revenue> getTopAccount(int userID, String searched_month, int searched_year);
+
+    @Query("SELECT account_amount FROM Revenue WHERE user_id==:userID AND month==:searchedMonth AND year==:searchedYear")
+    LiveData<List<BigDecimal>> getAllRevenuesValuesByMonth(int userID, String searchedMonth, int searchedYear);
 }

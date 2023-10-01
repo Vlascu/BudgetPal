@@ -1,25 +1,22 @@
-package com.example.budgetpal.model;
+package com.example.budgetpal.data_models.model;
 
 import android.app.Application;
-import android.content.Context;
 
 import androidx.lifecycle.LiveData;
 
-import com.example.budgetpal.model.daos.BudgetDAO;
-import com.example.budgetpal.model.daos.DatesDAO;
-import com.example.budgetpal.model.daos.RevenueDAO;
-import com.example.budgetpal.model.daos.SpendingsDAO;
-import com.example.budgetpal.model.daos.UserDAO;
-import com.example.budgetpal.model.return_models.MonthDayYear;
-import com.example.budgetpal.model.return_models.MonthYear;
-import com.example.budgetpal.model.tables.BudgetTable;
-import com.example.budgetpal.model.tables.Dates;
-import com.example.budgetpal.model.tables.Revenue;
-import com.example.budgetpal.model.tables.SpendingsTable;
-import com.example.budgetpal.model.tables.User;
+import com.example.budgetpal.data_models.model.daos.RevenueDAO;
+import com.example.budgetpal.data_models.model.daos.SpendingsDAO;
+import com.example.budgetpal.data_models.model.daos.UserDAO;
+import com.example.budgetpal.data_models.model.return_models.MonthYear;
+import com.example.budgetpal.data_models.model.daos.BudgetDAO;
+import com.example.budgetpal.data_models.model.daos.DatesDAO;
+import com.example.budgetpal.data_models.model.tables.BudgetTable;
+import com.example.budgetpal.data_models.model.tables.Dates;
+import com.example.budgetpal.data_models.model.tables.Revenue;
+import com.example.budgetpal.data_models.model.tables.SpendingsTable;
+import com.example.budgetpal.data_models.model.tables.User;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -252,5 +249,13 @@ public class DatabaseRepository {
                 spendingsDAO.deleteSpending(user_id, day, month, year, product_name);
             }
         });
+    }
+    public LiveData<List<BigDecimal>> getAllSpendingsFromMonth(int user_id, String month, int year)
+    {
+        return spendingsDAO.getAllSpendingFromMonth(user_id,month,year);
+    }
+    public LiveData<List<BigDecimal>> getAllRevenuesValuesByMonth(int user_id, String month, int year)
+    {
+        return revenueDAO.getAllRevenuesValuesByMonth(user_id,month,year);
     }
 }
