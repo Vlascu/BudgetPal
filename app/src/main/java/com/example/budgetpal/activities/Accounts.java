@@ -15,7 +15,7 @@ import android.view.View;
 import com.example.budgetpal.R;
 import com.example.budgetpal.adapters.AccountsRecyclerAdapter;
 import com.example.budgetpal.dialogs.AddDialog;
-import com.example.budgetpal.data_models.model.tables.Revenue;
+import com.example.budgetpal.model.tables.Revenue;
 import com.example.budgetpal.view_models.AccountsViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 

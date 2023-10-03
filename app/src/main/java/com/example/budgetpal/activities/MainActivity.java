@@ -25,7 +25,7 @@ import android.widget.Toast;
 
 import com.example.budgetpal.R;
 import com.example.budgetpal.dialogs.ConfirmationDialog;
-import com.example.budgetpal.data_models.model.tables.Revenue;
+import com.example.budgetpal.model.tables.Revenue;
 import com.example.budgetpal.view_models.MainActivityViewModel;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.XAxis;

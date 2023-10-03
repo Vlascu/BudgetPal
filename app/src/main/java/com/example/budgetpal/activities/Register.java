@@ -15,10 +15,11 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.budgetpal.R;
-import com.example.budgetpal.data_models.model.tables.User;
+import com.example.budgetpal.model.tables.User;
 import com.example.budgetpal.view_models.RegisterViewModel;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.concurrent.CountDownLatch;
 
 public class Register extends AppCompatActivity {
 
@@ -57,20 +58,23 @@ public class Register extends AppCompatActivity {
                 else {
 
                     LiveData<User> existingUserLiveData = registerViewModel.getUser(user_email.getText().toString(), user_password.getText().toString());
-
                     existingUserLiveData.observe(Register.this, new Observer<User>() {
                         @Override
                         public void onChanged(User existingUser) {
                             existingUserLiveData.removeObserver(this);
+
                             if (existingUser == null) {
                                 try {
+
                                     registerViewModel.insertUser(new User(user_email.getText().toString(), user_password.getText().toString()));
                                     LiveData<User> getIdFromUser = registerViewModel.getUser(user_email.getText().toString(), user_password.getText().toString());
                                     getIdFromUser.observe(Register.this, new Observer<User>() {
                                         @Override
                                         public void onChanged(User user) {
-                                            getIdFromUser.removeObserver(this);
-                                            saveUserId(user.getID());
+                                            if (user != null) {
+                                                getIdFromUser.removeObserver(this);
+                                                saveUserId(user.getID());
+                                            }
                                         }
                                     });
                                     Intent i = new Intent(getApplicationContext(), MainActivity.class);
@@ -83,7 +87,6 @@ public class Register extends AppCompatActivity {
                                 Toast.makeText(Register.this, "User already exists!", Toast.LENGTH_LONG).show();
                         }
                     });
-
                 }
             }
         });
@@ -92,7 +95,7 @@ public class Register extends AppCompatActivity {
             public void onClick(View v) {
                 isPasswordVisible = !isPasswordVisible;
                 int inputType;
-                if(isPasswordVisible)
+                if (isPasswordVisible)
                     inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD;
                 else
                     inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD;

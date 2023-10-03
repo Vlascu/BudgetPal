@@ -12,7 +12,7 @@ import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.budgetpal.R;
-import com.example.budgetpal.data_models.model.tables.Revenue;
+import com.example.budgetpal.model.tables.Revenue;
 import com.example.budgetpal.view_models.AccountsViewModel;
 
 import java.math.BigDecimal;

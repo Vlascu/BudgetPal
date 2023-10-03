@@ -1,20 +1,20 @@
-package com.example.budgetpal.data_models.model;
+package com.example.budgetpal.model;
 
 import android.app.Application;
 
 import androidx.lifecycle.LiveData;
 
-import com.example.budgetpal.data_models.model.daos.RevenueDAO;
-import com.example.budgetpal.data_models.model.daos.SpendingsDAO;
-import com.example.budgetpal.data_models.model.daos.UserDAO;
-import com.example.budgetpal.data_models.model.return_models.MonthYear;
-import com.example.budgetpal.data_models.model.daos.BudgetDAO;
-import com.example.budgetpal.data_models.model.daos.DatesDAO;
-import com.example.budgetpal.data_models.model.tables.BudgetTable;
-import com.example.budgetpal.data_models.model.tables.Dates;
-import com.example.budgetpal.data_models.model.tables.Revenue;
-import com.example.budgetpal.data_models.model.tables.SpendingsTable;
-import com.example.budgetpal.data_models.model.tables.User;
+import com.example.budgetpal.model.daos.RevenueDAO;
+import com.example.budgetpal.model.daos.SpendingsDAO;
+import com.example.budgetpal.model.daos.UserDAO;
+import com.example.budgetpal.model.return_models.MonthYear;
+import com.example.budgetpal.model.daos.BudgetDAO;
+import com.example.budgetpal.model.daos.DatesDAO;
+import com.example.budgetpal.model.tables.BudgetTable;
+import com.example.budgetpal.model.tables.Dates;
+import com.example.budgetpal.model.tables.Revenue;
+import com.example.budgetpal.model.tables.SpendingsTable;
+import com.example.budgetpal.model.tables.User;
 
 import java.math.BigDecimal;
 import java.util.List;
