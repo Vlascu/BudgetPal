@@ -1,8 +1,9 @@
 package com.example.budgetpal.model.return_models;
 
 public class MonthDayYear {
-    private String month;
-    private int day, year;
+    private final String month;
+    private final int day;
+    private final int year;
 
     public MonthDayYear(String month, int day, int year) {
         this.month = month;

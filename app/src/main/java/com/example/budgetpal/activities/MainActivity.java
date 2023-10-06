@@ -122,6 +122,7 @@ public class MainActivity extends AppCompatActivity implements ConfirmationDialo
 
             }
         });
+        //Todo: make this function work
         //setSpendingsChartData();
     }
 

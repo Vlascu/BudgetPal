@@ -19,7 +19,7 @@ import java.util.ArrayList;
 
 public class BudgetsRecyclerAdapter extends RecyclerView.Adapter<BudgetsRecyclerAdapter.MyViewHolder> {
 
-    private ArrayList<BudgetModel> data;
+    private final ArrayList<BudgetModel> data;
 
     public BudgetsRecyclerAdapter(ArrayList<BudgetModel> data) {
         this.data = data;
@@ -46,7 +46,7 @@ public class BudgetsRecyclerAdapter extends RecyclerView.Adapter<BudgetsRecycler
     }
 
 
-    public class MyViewHolder extends RecyclerView.ViewHolder{
+    public static class MyViewHolder extends RecyclerView.ViewHolder{
         public TextView category_name, percentage;
         public ImageView image;
         public ProgressBar progressBar;

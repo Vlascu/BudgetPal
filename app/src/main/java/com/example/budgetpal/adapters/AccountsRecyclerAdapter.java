@@ -20,18 +20,19 @@ import java.util.ArrayList;
 
 public class AccountsRecyclerAdapter extends RecyclerView.Adapter<AccountsRecyclerAdapter.MyViewHolder> {
 
-    private ArrayList<Revenue> data;
+    private final ArrayList<Revenue> data;
 
-    private int user_id;
+    private final int user_id;
 
-    private AccountsViewModel accountsViewModel;
+    private final AccountsViewModel accountsViewModel;
 
-    private int year;
-    private String month, account_name;
+    private final int year;
+    private final String month;
+    private String account_name;
 
     private BigDecimal account_value;
 
-    private LifecycleOwner lifecycleOwner;
+    private final LifecycleOwner lifecycleOwner;
     public AccountsRecyclerAdapter(ArrayList<Revenue> data, int user_id, AccountsViewModel accountsViewModel,String month, int year
     , LifecycleOwner lifecycleOwner) {
         this.data = data;

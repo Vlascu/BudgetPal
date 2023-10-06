@@ -43,5 +43,5 @@ public interface RevenueDAO {
     LiveData<Revenue> getTopAccount(int userID, String searched_month, int searched_year);
 
     @Query("SELECT account_amount FROM Revenue WHERE user_id==:userID AND month==:searchedMonth AND year==:searchedYear")
-    LiveData<List<BigDecimal>> getAllRevenuesValuesByMonth(int userID, String searchedMonth, int searchedYear);
+    List<BigDecimal> getAllRevenuesValuesByMonth(int userID, String searchedMonth, int searchedYear);
 }

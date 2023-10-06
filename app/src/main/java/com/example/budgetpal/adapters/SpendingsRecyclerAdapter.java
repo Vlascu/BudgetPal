@@ -20,16 +20,18 @@ import java.util.ArrayList;
 
 public class SpendingsRecyclerAdapter extends RecyclerView.Adapter<SpendingsRecyclerAdapter.MyViewHolder>{
 
-    private ArrayList<SpendingsTable> data;
-    private SpendingsViewModel spendingsViewModel;
-    private int year, day, user_id;
-    private String month;
+    private final ArrayList<SpendingsTable> data;
+    private final SpendingsViewModel spendingsViewModel;
+    private final int year;
+    private final int day;
+    private final int user_id;
+    private final String month;
 
     private BigDecimal product_value;
 
     private String product_name;
 
-    private LifecycleOwner lifecycleOwner;
+    private final LifecycleOwner lifecycleOwner;
 
     public SpendingsRecyclerAdapter(ArrayList<SpendingsTable> data, SpendingsViewModel spendingsViewModel, int year, int day, String month, int user_id
     , LifecycleOwner lifecycleOwner) {

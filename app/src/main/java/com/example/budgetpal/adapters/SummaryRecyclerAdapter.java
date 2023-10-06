@@ -62,9 +62,11 @@ public class SummaryRecyclerAdapter extends RecyclerView.Adapter<SummaryRecycler
         return dates.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
-        private TextView date_view, revenue_view, spending_view;
-        private PieChart pieChart;
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
+        private final TextView date_view;
+        private final TextView revenue_view;
+        private final TextView spending_view;
+        private final PieChart pieChart;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
