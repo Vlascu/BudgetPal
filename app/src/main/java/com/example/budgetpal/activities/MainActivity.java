@@ -47,7 +47,7 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity implements ConfirmationDialog.DialogListener {
 
     private Spinner date_spinner;
-    private ConstraintLayout summaryTab, spendingTab, budgetTab, accountsTab;
+    private ConstraintLayout spendingTab, budgetTab, accountsTab;
 
     private MainActivityViewModel mainActivityViewModel;
 
@@ -72,15 +72,6 @@ public class MainActivity extends AppCompatActivity implements ConfirmationDialo
         setTotalMoneyText();
 
         setTopAccountAndValue();
-
-        summaryTab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startCustomAnimation(v);
-                Intent i = new Intent(getApplicationContext(), Summary.class);
-                startActivity(i);
-            }
-        });
 
         spendingTab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -157,7 +148,6 @@ public class MainActivity extends AppCompatActivity implements ConfirmationDialo
 
     private void findGraphicalElements() {
         date_spinner = findViewById(R.id.date_spinner);
-        summaryTab = findViewById(R.id.summaryTab);
         spendingTab = findViewById(R.id.spendingTab);
         budgetTab = findViewById(R.id.budgetTab);
         accountsTab = findViewById(R.id.accountsTab);

@@ -21,10 +21,6 @@
             android:exported="false"
             android:parentActivityName=".activities.MainActivity"/>
         <activity
-            android:name=".activities.Summary"
-            android:exported="false"
-            android:parentActivityName=".activities.MainActivity"/>
-        <activity
             android:name=".activities.Spendings"
             android:exported="false"
             android:parentActivityName=".activities.MainActivity" />
