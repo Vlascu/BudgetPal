@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 
 public class ConfirmationDialog extends AppCompatDialogFragment {
 
-    private int user_id;
+    private final int user_id;
 
     private DialogListener listener;
     public ConfirmationDialog(int user_id) {

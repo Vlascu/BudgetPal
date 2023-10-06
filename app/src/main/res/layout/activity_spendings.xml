@@ -67,5 +67,15 @@
         app:layout_constraintTop_toBottomOf="@id/spendings_recyclerView"
         app:srcCompat="@drawable/baseline_add_24" />
 
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/accounts_to_delete"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spendings_recyclerView" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -38,92 +38,15 @@
         android:layout_width="411dp"
         android:layout_height="0dp"
         android:layout_marginTop="88dp"
-        android:layout_marginBottom="10dp"
         android:columnCount="2"
-        android:padding="18dp"
-        android:rowCount="2"
-        app:layout_constraintBottom_toTopOf="@+id/current_balance"
+        android:padding="5dp"
+        android:rowCount="1"
+        app:layout_constraintBottom_toTopOf="@+id/budgetTab"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/summaryTab"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_rowWeight="1"
-            android:layout_columnWeight="1"
-            android:layout_margin="5dp"
-            android:background="@drawable/register_box"
-            android:elevation="10dp">
-
-            <TextView
-                android:id="@+id/summary_tab_summaryText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"
-                android:text="@string/summary"
-                android:textSize="22sp"
-                app:layout_constraintEnd_toEndOf="@+id/summaryTab"
-                app:layout_constraintStart_toStartOf="@+id/summaryTab"
-                app:layout_constraintTop_toTopOf="@+id/summaryTab" />
-
-            <TextView
-                android:id="@+id/summary_tab_revenueText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="18dp"
-                android:layout_marginTop="80dp"
-                android:text="@string/revenue"
-                android:textSize="15sp"
-                app:layout_constraintStart_toStartOf="@+id/summaryTab"
-                app:layout_constraintTop_toTopOf="@+id/summaryTab" />
-
-            <TextView
-                android:id="@+id/summary_tab_spendingText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="18dp"
-                android:layout_marginTop="150dp"
-                android:text="@string/spending"
-                android:textSize="15sp"
-                app:layout_constraintStart_toStartOf="@+id/summaryTab"
-                app:layout_constraintTop_toTopOf="@+id/summaryTab" />
-
-            <TextView
-                android:id="@+id/summary_tab_revenue_value"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="80dp"
-                android:text="TextView"
-                android:textSize="15sp"
-                app:layout_constraintStart_toEndOf="@+id/summary_tab_revenueText"
-                app:layout_constraintTop_toTopOf="@+id/summaryTab" />
-
-            <TextView
-                android:id="@+id/summary_tab_spending_value"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="150dp"
-                android:text="TextView"
-                android:textSize="15sp"
-                app:layout_constraintStart_toEndOf="@+id/summary_tab_spendingText"
-                app:layout_constraintTop_toTopOf="@+id/summaryTab" />
-
-            <com.github.mikephil.charting.charts.HorizontalBarChart
-                android:id="@+id/horizontalBarChart"
-                android:layout_width="231dp"
-                android:layout_height="50dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="20dp"
-                app:layout_constraintBottom_toBottomOf="@+id/summaryTab"
-                app:layout_constraintEnd_toEndOf="@+id/summaryTab"
-                app:layout_constraintStart_toStartOf="@+id/summaryTab" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/spendingTab"
@@ -132,6 +55,8 @@
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
             android:layout_margin="5dp"
+            android:layout_marginBottom="10dp"
+
             android:background="@drawable/register_box"
             android:elevation="10dp">
 
@@ -156,39 +81,6 @@
                 app:layout_constraintEnd_toEndOf="@+id/spendingTab"
                 app:layout_constraintStart_toStartOf="@+id/spendingTab" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/budgetTab"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_rowWeight="1"
-            android:layout_columnWeight="1"
-            android:layout_margin="5dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/register_box"
-            android:elevation="10dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"
-                android:text="@string/budgets"
-                android:textSize="22sp"
-                app:layout_constraintEnd_toEndOf="@+id/budgetTab"
-                app:layout_constraintStart_toStartOf="@+id/budgetTab"
-                app:layout_constraintTop_toTopOf="@+id/budgetTab" />
-
-            <com.github.mikephil.charting.charts.HorizontalBarChart
-                android:id="@+id/budget_tab_chart"
-                android:layout_width="231dp"
-                android:layout_height="150dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="20dp"
-                app:layout_constraintBottom_toBottomOf="@+id/budgetTab"
-                app:layout_constraintEnd_toEndOf="@+id/budgetTab"
-                app:layout_constraintStart_toStartOf="@+id/budgetTab" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -230,9 +122,9 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="100dp"
+                android:gravity="center"
                 android:text="account name"
                 android:textSize="20sp"
-                android:gravity="center"
                 app:layout_constraintEnd_toEndOf="@+id/accountsTab"
                 app:layout_constraintStart_toStartOf="@+id/accountsTab"
                 app:layout_constraintTop_toTopOf="@+id/accountsTab" />
@@ -265,17 +157,53 @@
 
     </GridLayout>
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/budgetTab"
+        android:layout_width="180dp"
+        android:layout_height="260dp"
+        android:layout_margin="5dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/register_box"
+        android:elevation="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/gridLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:text="@string/budgets"
+            android:textSize="22sp"
+            app:layout_constraintEnd_toEndOf="@+id/budgetTab"
+            app:layout_constraintStart_toStartOf="@+id/budgetTab"
+            app:layout_constraintTop_toTopOf="@+id/budgetTab" />
+
+        <com.github.mikephil.charting.charts.HorizontalBarChart
+            android:id="@+id/budget_tab_chart"
+            android:layout_width="231dp"
+            android:layout_height="150dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="20dp"
+            app:layout_constraintBottom_toBottomOf="@+id/budgetTab"
+            app:layout_constraintEnd_toEndOf="@+id/budgetTab"
+            app:layout_constraintStart_toStartOf="@+id/budgetTab" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <TextView
         android:id="@+id/current_balance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
+        android:layout_marginTop="12dp"
         android:layout_marginBottom="16dp"
         android:text="@string/current_balance"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gridLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/budgetTab" />
 
     <TextView
         android:id="@+id/current_balance_value"

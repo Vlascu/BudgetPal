@@ -7,7 +7,6 @@ import androidx.room.Query;
 
 import com.example.budgetpal.model.tables.Dates;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Dao

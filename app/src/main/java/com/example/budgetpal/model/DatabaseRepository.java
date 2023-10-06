@@ -1,17 +1,15 @@
 package com.example.budgetpal.model;
 
 import android.app.Application;
-import android.content.Context;
 
 import androidx.lifecycle.LiveData;
 
-import com.example.budgetpal.model.daos.BudgetDAO;
-import com.example.budgetpal.model.daos.DatesDAO;
 import com.example.budgetpal.model.daos.RevenueDAO;
 import com.example.budgetpal.model.daos.SpendingsDAO;
 import com.example.budgetpal.model.daos.UserDAO;
-import com.example.budgetpal.model.return_models.MonthDayYear;
 import com.example.budgetpal.model.return_models.MonthYear;
+import com.example.budgetpal.model.daos.BudgetDAO;
+import com.example.budgetpal.model.daos.DatesDAO;
 import com.example.budgetpal.model.tables.BudgetTable;
 import com.example.budgetpal.model.tables.Dates;
 import com.example.budgetpal.model.tables.Revenue;
@@ -19,7 +17,6 @@ import com.example.budgetpal.model.tables.SpendingsTable;
 import com.example.budgetpal.model.tables.User;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -145,15 +142,6 @@ public class DatabaseRepository {
         });
     }
 
-    public void deleteSpending(SpendingsTable spendingsTable) {
-        ExecutorService executorService = Executors.newSingleThreadExecutor();
-        executorService.execute(new Runnable() {
-            @Override
-            public void run() {
-                spendingsDAO.delete(spendingsTable);
-            }
-        });
-    }
 
     public LiveData<List<SpendingsTable>> getAllSpendingsFromDate(int user_id, String month, int day, int year) {
         return spendingsDAO.getAllSpendingsFromDate(user_id, month, day, year);
@@ -251,5 +239,23 @@ public class DatabaseRepository {
 
     public LiveData<List<BigDecimal>> getAllValuesBasedOnCategory(int user_id, String category) {
         return spendingsDAO.getAllValuesBasedOnCategory(user_id, category);
+    }
+
+    public void deleteSpending(int user_id, int day, String month, int year, String product_name) {
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                spendingsDAO.deleteSpending(user_id, day, month, year, product_name);
+            }
+        });
+    }
+    public List<BigDecimal> getAllSpendingsFromMonth(int user_id, String month, int year)
+    {
+        return spendingsDAO.getAllSpendingFromMonth(user_id,month,year);
+    }
+    public List<BigDecimal> getAllRevenuesValuesByMonth(int user_id, String month, int year)
+    {
+        return revenueDAO.getAllRevenuesValuesByMonth(user_id,month,year);
     }
 }

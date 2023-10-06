@@ -110,7 +110,7 @@ public class Spendings extends AppCompatActivity implements AddDialog.AddDialogL
     }
 
     private void updateRecyclerView(ArrayList<SpendingsTable> data) {
-        spendingsRecyclerAdapter = new SpendingsRecyclerAdapter(data);
+        spendingsRecyclerAdapter = new SpendingsRecyclerAdapter(data, spendingsViewModel, current_year,current_day,current_month, user_id, this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(spendingsRecyclerAdapter);
     }

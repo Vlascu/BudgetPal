@@ -6,7 +6,6 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.example.budgetpal.dialogs.AddDialog;
 import com.example.budgetpal.model.DatabaseRepository;
 import com.example.budgetpal.model.tables.SpendingsTable;
 
@@ -37,5 +36,14 @@ public class SpendingsViewModel extends AndroidViewModel {
     {
         return databaseRepository.getTotalMoneyFromDB(user_id);
     }
+    public void deleteSpending(int user_id, int day, String month, int year, String product_name)
+    {
+        databaseRepository.deleteSpending(user_id,day,month,year, product_name);
+    }
+    public void updateTotalMoney(int user_id, BigDecimal value)
+    {
+        databaseRepository.updateTotalMoney(value,user_id);
+    }
+
 
 }

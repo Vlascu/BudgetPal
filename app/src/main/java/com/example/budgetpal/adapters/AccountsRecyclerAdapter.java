@@ -3,8 +3,6 @@ package com.example.budgetpal.adapters;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.ScaleAnimation;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,29 +12,27 @@ import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.budgetpal.R;
-import com.example.budgetpal.activities.Accounts;
-import com.example.budgetpal.data_models.SpendingsModel;
 import com.example.budgetpal.model.tables.Revenue;
 import com.example.budgetpal.view_models.AccountsViewModel;
-import com.example.budgetpal.view_models.MainActivityViewModel;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
 public class AccountsRecyclerAdapter extends RecyclerView.Adapter<AccountsRecyclerAdapter.MyViewHolder> {
 
-    private ArrayList<Revenue> data;
+    private final ArrayList<Revenue> data;
 
-    private int user_id;
+    private final int user_id;
 
-    private AccountsViewModel accountsViewModel;
+    private final AccountsViewModel accountsViewModel;
 
-    private int year;
-    private String month, account_name;
+    private final int year;
+    private final String month;
+    private String account_name;
 
     private BigDecimal account_value;
 
-    private LifecycleOwner lifecycleOwner;
+    private final LifecycleOwner lifecycleOwner;
     public AccountsRecyclerAdapter(ArrayList<Revenue> data, int user_id, AccountsViewModel accountsViewModel,String month, int year
     , LifecycleOwner lifecycleOwner) {
         this.data = data;

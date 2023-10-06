@@ -18,7 +18,7 @@ public class User {
     private String password;
 
     @ColumnInfo(name="total_money")
-    private BigDecimal total_money = new BigDecimal(0);
+    private BigDecimal total_money = BigDecimal.ZERO;
 
     public User(String email, String password) {
         this.email = email;
