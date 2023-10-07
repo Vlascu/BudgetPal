@@ -16,7 +16,7 @@ public class BudgetTable {
     @ColumnInfo(name="user_id")
     private int user_id;
     @ColumnInfo(name="category")
-    private int category;
+    private String category;
     @ColumnInfo(name="value")
     private BigDecimal value;
     @ColumnInfo(name="month")
@@ -25,8 +25,7 @@ public class BudgetTable {
     @ColumnInfo(name="year")
     private int year;
 
-    public BudgetTable(int budget_id, int user_id, int category, BigDecimal value, String month, int year) {
-        this.budget_id = budget_id;
+    public BudgetTable(int user_id, String category, BigDecimal value, String month, int year) {
         this.user_id = user_id;
         this.category = category;
         this.value = new BigDecimal(value.toString());
@@ -50,11 +49,11 @@ public class BudgetTable {
         this.user_id = user_id;
     }
 
-    public int getCategory() {
+    public String getCategory() {
         return category;
     }
 
-    public void setCategory(int category) {
+    public void setCategory(String category) {
         this.category = category;
     }
 

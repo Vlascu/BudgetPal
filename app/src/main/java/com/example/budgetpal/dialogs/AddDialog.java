@@ -113,6 +113,35 @@ public class AddDialog extends AppCompatDialogFragment {
                     }
                 }
             });
+        } else if (option == 3) {
+            customDialog = getLayoutInflater().inflate(R.layout.budget_add_dialog, null);
+            findGraphicalElements();
+            fillSpinner();
+            category_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    category = (String) parent.getItemAtPosition(position);
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+            builder.setView(customDialog).setTitle("Budget information").setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                }
+            }).setPositiveButton("Add", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    if (amount.getText().length() == 0)
+                        Toast.makeText(getContext(), "Insert the value!", Toast.LENGTH_LONG).show();
+                    else
+                        listener.onPositiveButtonClick(user_id, "", new BigDecimal(amount.getText().toString()), category);
+                }
+            });
         }
         return builder.create();
     }
@@ -133,6 +162,9 @@ public class AddDialog extends AppCompatDialogFragment {
             name = customDialog.findViewById(R.id.spending_addDialog_name);
             amount = customDialog.findViewById(R.id.spending_addDialog_value);
             category_spinner = customDialog.findViewById(R.id.addDialog_spinner);
+        } else if (option == 3) {
+            category_spinner = customDialog.findViewById(R.id.budget_add_category_spinner);
+            amount = customDialog.findViewById(R.id.budget_add_dialog_value);
         }
     }
 
