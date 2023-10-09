@@ -15,6 +15,7 @@ import com.example.budgetpal.data_models.BudgetModel;
 
 import org.w3c.dom.Text;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 public class BudgetsRecyclerAdapter extends RecyclerView.Adapter<BudgetsRecyclerAdapter.MyViewHolder> {
@@ -35,9 +36,15 @@ public class BudgetsRecyclerAdapter extends RecyclerView.Adapter<BudgetsRecycler
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.category_name.setText(data.get(position).getCategory_name());
-        holder.percentage.setText(data.get(position).getPercentage());
+        holder.percentage.setText(calculatePercentage(position));
         holder.image.setImageResource(data.get(position).getImage());
-        holder.progressBar.setProgress(data.get(position).getCurrent_progress(),true);
+        holder.progressBar.setMax((data.get(position).getMax_budget()).intValue());
+        holder.progressBar.setProgress((data.get(position).getCurrent_progress()).intValue(),true);
+    }
+
+    private String calculatePercentage(int position) {
+        return String.valueOf(((data.get(position).getCurrent_progress().divide(data.get(position).getMax_budget()))
+                .multiply(new BigDecimal(100))).intValue());
     }
 
     @Override

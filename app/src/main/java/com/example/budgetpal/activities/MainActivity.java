@@ -59,6 +59,8 @@ public class MainActivity extends AppCompatActivity implements ConfirmationDialo
 
     private BarChart spendingsBarChart;
 
+    //Todo: scoate cod duplicat, repara camel case, scoate din warning-uri, mai uitate peste tot codul sa l intelegi
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
