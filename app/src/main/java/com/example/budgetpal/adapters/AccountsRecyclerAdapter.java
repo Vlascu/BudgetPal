@@ -22,21 +22,21 @@ public class AccountsRecyclerAdapter extends RecyclerView.Adapter<AccountsRecycl
 
     private final ArrayList<Revenue> data;
 
-    private final int user_id;
+    private final int userId;
 
     private final AccountsViewModel accountsViewModel;
 
     private final int year;
     private final String month;
-    private String account_name;
+    private String accountName;
 
-    private BigDecimal account_value;
+    private BigDecimal accountValue;
 
     private final LifecycleOwner lifecycleOwner;
-    public AccountsRecyclerAdapter(ArrayList<Revenue> data, int user_id, AccountsViewModel accountsViewModel,String month, int year
+    public AccountsRecyclerAdapter(ArrayList<Revenue> data, int userId, AccountsViewModel accountsViewModel, String month, int year
     , LifecycleOwner lifecycleOwner) {
         this.data = data;
-        this.user_id = user_id;
+        this.userId = userId;
         this.accountsViewModel = accountsViewModel;
         this.month = month;
         this.year = year;
@@ -54,8 +54,8 @@ public class AccountsRecyclerAdapter extends RecyclerView.Adapter<AccountsRecycl
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.item_name.setText(data.get(position).getAccount());
         holder.item_value.setText(String.format("%.2f",data.get(position).getAccount_amount()));
-        account_name = holder.item_name.getText().toString();
-        account_value = new BigDecimal(holder.item_value.getText().toString().replace(",", "."));
+        accountName = holder.item_name.getText().toString();
+        accountValue = new BigDecimal(holder.item_value.getText().toString().replace(",", "."));
     }
 
     @Override
@@ -75,14 +75,14 @@ public class AccountsRecyclerAdapter extends RecyclerView.Adapter<AccountsRecycl
                 public void onClick(View v) {
                     int adapterPosition = getAdapterPosition();
                     if (adapterPosition != RecyclerView.NO_POSITION) {
-                        accountsViewModel.deleteRevenue(user_id, month, year, account_name);
-                        LiveData<BigDecimal> dataReturned = accountsViewModel.getTotalMoney(user_id);
+                        accountsViewModel.deleteRevenue(userId, month, year, accountName);
+                        LiveData<BigDecimal> dataReturned = accountsViewModel.getTotalMoney(userId);
                         dataReturned.observe(lifecycleOwner, new Observer<BigDecimal>() {
                             @Override
                             public void onChanged(BigDecimal bigDecimal) {
                                 dataReturned.removeObserver(this);
-                                bigDecimal = bigDecimal.subtract(account_value);
-                                accountsViewModel.updateTotalMoneyInDB(user_id,bigDecimal);
+                                bigDecimal = bigDecimal.subtract(accountValue);
+                                accountsViewModel.updateTotalMoneyInDB(userId,bigDecimal);
                             }
                         });
                         notifyItemRemoved(adapterPosition);

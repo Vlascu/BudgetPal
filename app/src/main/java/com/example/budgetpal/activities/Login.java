@@ -20,8 +20,8 @@ import com.example.budgetpal.view_models.LoginViewModel;
 
 public class Login extends AppCompatActivity {
 
-    private Button login_button,go_to_register,show_password;
-    private EditText user_email, user_password;
+    private Button loginButton, goToRegister, showPassword;
+    private EditText userEmail, userPassword;
 
     private LoginViewModel loginViewModel;
 
@@ -35,7 +35,7 @@ public class Login extends AppCompatActivity {
 
         loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
 
-        go_to_register.setOnClickListener(new View.OnClickListener() {
+        goToRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), Register.class);
@@ -43,7 +43,7 @@ public class Login extends AppCompatActivity {
                 finish();
             }
         });
-        show_password.setOnClickListener(new View.OnClickListener() {
+        showPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 isPasswordVisible = !isPasswordVisible;
@@ -52,18 +52,18 @@ public class Login extends AppCompatActivity {
                     inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD;
                 else
                     inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD;
-                user_password.setInputType(InputType.TYPE_CLASS_TEXT | inputType);
-                user_password.setSelection(user_password.getText().length());
+                userPassword.setInputType(InputType.TYPE_CLASS_TEXT | inputType);
+                userPassword.setSelection(userPassword.getText().length());
             }
         });
-        login_button.setOnClickListener(new View.OnClickListener() {
+        loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(user_email.getText().length()==0||user_password.getText().length()==0)
+                if(userEmail.getText().length()==0|| userPassword.getText().length()==0)
                     Toast.makeText(Login.this, "Insert all data!", Toast.LENGTH_SHORT).show();
                 else
                 {
-                    LiveData<User> checkedUser = loginViewModel.getUser(user_email.getText().toString(),user_password.getText().toString());
+                    LiveData<User> checkedUser = loginViewModel.getUser(userEmail.getText().toString(), userPassword.getText().toString());
                     checkedUser.observe(Login.this, new Observer<User>() {
                         @Override
                         public void onChanged(User user) {
@@ -86,11 +86,11 @@ public class Login extends AppCompatActivity {
 
     private void findViews()
     {
-        login_button = findViewById(R.id.login_loginButton);
-        go_to_register = findViewById(R.id.login_register_button);
-        show_password = findViewById(R.id.login_show_password);
-        user_email = findViewById(R.id.emailLogin);
-        user_password=findViewById(R.id.passwordLogin);
+        loginButton = findViewById(R.id.login_loginButton);
+        goToRegister = findViewById(R.id.login_register_button);
+        showPassword = findViewById(R.id.login_show_password);
+        userEmail = findViewById(R.id.emailLogin);
+        userPassword =findViewById(R.id.passwordLogin);
     }
     private void saveUserId(int id) {
         SharedPreferences sharedPreferences = getSharedPreferences(Register.SHARED_PREF, MODE_PRIVATE);

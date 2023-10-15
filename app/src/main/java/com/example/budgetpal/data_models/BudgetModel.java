@@ -1,15 +1,26 @@
 package com.example.budgetpal.data_models;
 
+import java.math.BigDecimal;
+
 public class BudgetModel {
 
-    private int image, current_progress;
-    private String percentage, category_name;
+    private int image;
+    private BigDecimal currentProgress, maxBudget;
+    private String categoryName;
 
-    public BudgetModel(int image, int current_progress, String percentage, String category_name) {
+    public BudgetModel(int image, BigDecimal currentProgress, String categoryName, BigDecimal maxBudget) {
         this.image = image;
-        this.current_progress = current_progress;
-        this.percentage = percentage;
-        this.category_name = category_name;
+        this.currentProgress = new BigDecimal(currentProgress.toString());
+        this.categoryName = categoryName;
+        this.maxBudget = new BigDecimal(maxBudget.toString());
+    }
+
+    public BigDecimal getMaxBudget() {
+        return maxBudget;
+    }
+
+    public void setMaxBudget(BigDecimal maxBudget) {
+        this.maxBudget = new BigDecimal(maxBudget.toString());
     }
 
     public int getImage() {
@@ -20,27 +31,20 @@ public class BudgetModel {
         this.image = image;
     }
 
-    public int getCurrent_progress() {
-        return current_progress;
+    public BigDecimal getCurrentProgress() {
+        return currentProgress;
     }
 
-    public void setCurrent_progress(int current_progress) {
-        this.current_progress = current_progress;
+    public void setCurrentProgress(BigDecimal currentProgress) {
+        this.currentProgress = new BigDecimal(currentProgress.toString());
     }
 
-    public String getPercentage() {
-        return percentage;
+
+    public String getCategoryName() {
+        return categoryName;
     }
 
-    public void setPercentage(String percentage) {
-        this.percentage = percentage;
-    }
-
-    public String getCategory_name() {
-        return category_name;
-    }
-
-    public void setCategory_name(String category_name) {
-        this.category_name = category_name;
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 }

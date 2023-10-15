@@ -18,7 +18,7 @@ import com.example.budgetpal.model.tables.Revenue;
 import com.example.budgetpal.model.tables.SpendingsTable;
 import com.example.budgetpal.model.tables.User;
 
-@Database(entities = {BudgetTable.class, Revenue.class, SpendingsTable.class, User.class, Dates.class},version = 4)
+@Database(entities = {BudgetTable.class, Revenue.class, SpendingsTable.class, User.class, Dates.class},version = 5)
 @TypeConverters(BigDecimalDoubleTypeConverter.class)
 public abstract class AppDatabase extends RoomDatabase {
 

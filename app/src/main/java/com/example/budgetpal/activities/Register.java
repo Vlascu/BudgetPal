@@ -19,12 +19,11 @@ import com.example.budgetpal.model.tables.User;
 import com.example.budgetpal.view_models.RegisterViewModel;
 
 import java.security.NoSuchAlgorithmException;
-import java.util.concurrent.CountDownLatch;
 
 public class Register extends AppCompatActivity {
 
-    private Button login_button, register_button, show_password;
-    private EditText user_email, user_password;
+    private Button loginButton, registerButton, showPassword;
+    private EditText userEmail, userPassword;
     private RegisterViewModel registerViewModel;
 
     private boolean isPasswordVisible = false;
@@ -42,7 +41,7 @@ public class Register extends AppCompatActivity {
 
         registerViewModel = new ViewModelProvider(this).get(RegisterViewModel.class);
 
-        login_button.setOnClickListener(new View.OnClickListener() {
+        loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), Login.class);
@@ -50,14 +49,14 @@ public class Register extends AppCompatActivity {
             }
         });
 
-        register_button.setOnClickListener(new View.OnClickListener() {
+        registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (user_email.getText().length() == 0 || user_password.getText().length() == 0)
+                if (userEmail.getText().length() == 0 || userPassword.getText().length() == 0)
                     Toast.makeText(Register.this, "Please fill up all the information!", Toast.LENGTH_LONG).show();
                 else {
 
-                    LiveData<User> existingUserLiveData = registerViewModel.getUser(user_email.getText().toString(), user_password.getText().toString());
+                    LiveData<User> existingUserLiveData = registerViewModel.getUser(userEmail.getText().toString(), userPassword.getText().toString());
                     existingUserLiveData.observe(Register.this, new Observer<User>() {
                         @Override
                         public void onChanged(User existingUser) {
@@ -66,8 +65,8 @@ public class Register extends AppCompatActivity {
                             if (existingUser == null) {
                                 try {
 
-                                    registerViewModel.insertUser(new User(user_email.getText().toString(), user_password.getText().toString()));
-                                    LiveData<User> getIdFromUser = registerViewModel.getUser(user_email.getText().toString(), user_password.getText().toString());
+                                    registerViewModel.insertUser(new User(userEmail.getText().toString(), userPassword.getText().toString()));
+                                    LiveData<User> getIdFromUser = registerViewModel.getUser(userEmail.getText().toString(), userPassword.getText().toString());
                                     getIdFromUser.observe(Register.this, new Observer<User>() {
                                         @Override
                                         public void onChanged(User user) {
@@ -90,7 +89,7 @@ public class Register extends AppCompatActivity {
                 }
             }
         });
-        show_password.setOnClickListener(new View.OnClickListener() {
+        showPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 isPasswordVisible = !isPasswordVisible;
@@ -99,19 +98,19 @@ public class Register extends AppCompatActivity {
                     inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD;
                 else
                     inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD;
-                user_password.setInputType(InputType.TYPE_CLASS_TEXT | inputType);
-                user_password.setSelection(user_password.getText().length());
+                userPassword.setInputType(InputType.TYPE_CLASS_TEXT | inputType);
+                userPassword.setSelection(userPassword.getText().length());
             }
         });
 
     }
 
     private void viewsFinding() {
-        login_button = findViewById(R.id.register_login_button);
-        register_button = findViewById(R.id.register_registerButton);
-        user_email = findViewById(R.id.emailRegister);
-        user_password = findViewById(R.id.passwordRegister);
-        show_password = findViewById(R.id.register_show_password);
+        loginButton = findViewById(R.id.register_login_button);
+        registerButton = findViewById(R.id.register_registerButton);
+        userEmail = findViewById(R.id.emailRegister);
+        userPassword = findViewById(R.id.passwordRegister);
+        showPassword = findViewById(R.id.register_show_password);
     }
 
     private void saveUserId(int id) {

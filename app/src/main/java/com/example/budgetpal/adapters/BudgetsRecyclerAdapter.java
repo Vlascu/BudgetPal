@@ -13,8 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.budgetpal.R;
 import com.example.budgetpal.data_models.BudgetModel;
 
-import org.w3c.dom.Text;
-
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 public class BudgetsRecyclerAdapter extends RecyclerView.Adapter<BudgetsRecyclerAdapter.MyViewHolder> {
@@ -34,15 +33,27 @@ public class BudgetsRecyclerAdapter extends RecyclerView.Adapter<BudgetsRecycler
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.category_name.setText(data.get(position).getCategory_name());
-        holder.percentage.setText(data.get(position).getPercentage());
+        holder.category_name.setText(data.get(position).getCategoryName());
+        holder.percentage.setText(calculatePercentage(position));
         holder.image.setImageResource(data.get(position).getImage());
-        holder.progressBar.setProgress(data.get(position).getCurrent_progress(),true);
+        holder.progressBar.setMax((data.get(position).getMaxBudget()).intValue());
+        holder.progressBar.setProgress((data.get(position).getCurrentProgress()).intValue(),true);
+    }
+
+    private String calculatePercentage(int position) {
+        //Todo: fix division by 0
+        if(data.get(position).getMaxBudget().compareTo(BigDecimal.ZERO)>0)
+            return String.valueOf(((data.get(position).getCurrentProgress().divide(data.get(position).getMaxBudget()))
+                .multiply(new BigDecimal(100))).intValue())+'%';
+        else
+            return "0%";
     }
 
     @Override
     public int getItemCount() {
-        return data.size();
+        if(data!=null)
+            return data.size();
+        return 0;
     }
 
 

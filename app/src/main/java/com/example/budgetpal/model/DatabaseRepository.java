@@ -250,12 +250,16 @@ public class DatabaseRepository {
             }
         });
     }
-    public List<BigDecimal> getAllSpendingsFromMonth(int user_id, String month, int year)
+    public LiveData<List<BigDecimal>> getAllSpendingsFromMonth(int user_id, String month, int year, String category)
     {
-        return spendingsDAO.getAllSpendingFromMonth(user_id,month,year);
+        return spendingsDAO.getAllSpendingFromMonth(user_id,month,year, category);
     }
     public List<BigDecimal> getAllRevenuesValuesByMonth(int user_id, String month, int year)
     {
         return revenueDAO.getAllRevenuesValuesByMonth(user_id,month,year);
+    }
+    public LiveData<BigDecimal> getBudgetValue(int userID, String month, int year, String category)
+    {
+        return budgetDAO.getBudgetValue(userID,month,year, category);
     }
 }

@@ -36,12 +36,12 @@ public class Spendings extends AppCompatActivity implements AddDialog.AddDialogL
 
     private SpendingsViewModel spendingsViewModel;
 
-    private FloatingActionButton add_fab;
-    private int user_id, current_year, current_day;
+    private FloatingActionButton addFab;
+    private int userId, currentYear, currentDay;
 
-    private String current_month;
+    private String currentMonth;
 
-    private Spinner days_spinner;
+    private Spinner daysSpinner;
 
     private Intent intent;
 
@@ -50,22 +50,23 @@ public class Spendings extends AppCompatActivity implements AddDialog.AddDialogL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_spendings);
 
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         findGraphicalElements();
         getIdFromPreferences();
         getInformationFromIntent();
         createDaysArray();
         spendingsViewModel = new ViewModelProvider(this).get(SpendingsViewModel.class);
-        add_fab.setOnClickListener(new View.OnClickListener() {
+        addFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openAddDialog();
             }
         });
-        days_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        daysSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                current_day = (int) parent.getItemAtPosition(position);
+                currentDay = (int) parent.getItemAtPosition(position);
                 observeNewData();
             }
 
@@ -77,7 +78,7 @@ public class Spendings extends AppCompatActivity implements AddDialog.AddDialogL
     }
 
     private void observeNewData() {
-        spendingsViewModel.getAllSpendingFromDate(user_id, current_month, current_day, current_year).observe(this, new Observer<List<SpendingsTable>>() {
+        spendingsViewModel.getAllSpendingFromDate(userId, currentMonth, currentDay, currentYear).observe(this, new Observer<List<SpendingsTable>>() {
             @Override
             public void onChanged(List<SpendingsTable> spendingsTables) {
                 if (spendingsTables != null) {
@@ -100,17 +101,17 @@ public class Spendings extends AppCompatActivity implements AddDialog.AddDialogL
     private void updateDaysSpinner(ArrayList<Integer> days) {
         ArrayAdapter<Integer> spinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, days);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        days_spinner.setAdapter(spinnerAdapter);
+        daysSpinner.setAdapter(spinnerAdapter);
     }
 
     private void findGraphicalElements() {
         recyclerView = findViewById(R.id.spendings_recyclerView);
-        add_fab = findViewById(R.id.spendings_floatingActionButton);
-        days_spinner = findViewById(R.id.spendings_date_spinner);
+        addFab = findViewById(R.id.spendings_floatingActionButton);
+        daysSpinner = findViewById(R.id.spendings_date_spinner);
     }
 
     private void updateRecyclerView(ArrayList<SpendingsTable> data) {
-        spendingsRecyclerAdapter = new SpendingsRecyclerAdapter(data, spendingsViewModel, current_year,current_day,current_month, user_id, this);
+        spendingsRecyclerAdapter = new SpendingsRecyclerAdapter(data, spendingsViewModel, currentYear, currentDay, currentMonth, userId, this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(spendingsRecyclerAdapter);
     }
@@ -125,9 +126,9 @@ public class Spendings extends AppCompatActivity implements AddDialog.AddDialogL
                 totalMoney.removeObserver(this);
                 if (total_money_value.subtract(value).compareTo(BigDecimal.ZERO) >= 0) {
                     spendingsViewModel.updateTotalMoneyInDB(user_id, total_money_value.subtract(value));
-                    if (current_day <= getCurrentDay())
+                    if (currentDay <= getCurrentDay())
                     {
-                        spendingsViewModel.insertSpending(user_id, name, value, current_month, current_day, current_year, category);
+                        spendingsViewModel.insertSpending(user_id, name, value, currentMonth, currentDay, currentYear, category);
                         observeNewData();
                     }
 
@@ -142,7 +143,7 @@ public class Spendings extends AppCompatActivity implements AddDialog.AddDialogL
 
     private void getIdFromPreferences() {
         SharedPreferences sharedPreferences = getSharedPreferences(Register.SHARED_PREF, MODE_PRIVATE);
-        user_id = sharedPreferences.getInt(Register.USER_ID, 0);
+        userId = sharedPreferences.getInt(Register.USER_ID, 0);
     }
 
     private int getCurrentDay() {
@@ -153,13 +154,13 @@ public class Spendings extends AppCompatActivity implements AddDialog.AddDialogL
     private void getInformationFromIntent() {
         intent = getIntent();
         if (intent != null) {
-            current_month = intent.getStringExtra("month");
-            current_year = intent.getIntExtra("year", 0);
+            currentMonth = intent.getStringExtra("month");
+            currentYear = intent.getIntExtra("year", 0);
         }
     }
 
     private void openAddDialog() {
-        AddDialog addDialog = new AddDialog(user_id, 2);
+        AddDialog addDialog = new AddDialog(userId, 2);
         addDialog.show(getSupportFragmentManager(), "Add dialog");
     }
 }

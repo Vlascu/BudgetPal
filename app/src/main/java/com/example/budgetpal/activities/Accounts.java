@@ -26,13 +26,13 @@ import java.util.List;
 public class Accounts extends AppCompatActivity implements AddDialog.AddDialogListener {
 
 
-    private FloatingActionButton add_account_fab;
+    private FloatingActionButton addAccountFab;
     private RecyclerView recyclerView;
 
     private AccountsViewModel accountsViewModel;
 
-    private String current_month;
-    private int current_year, user_id;
+    private String currentMonth;
+    private int currentYear, userId;
 
     private AccountsRecyclerAdapter accountsRecyclerAdapter;
 
@@ -52,14 +52,14 @@ public class Accounts extends AppCompatActivity implements AddDialog.AddDialogLi
         accountsViewModel = new ViewModelProvider(this).get(AccountsViewModel.class);
 
 
-        accountsViewModel.getAllDataFromDate(user_id, current_month, current_year).observe(this, new Observer<List<Revenue>>() {
+        accountsViewModel.getAllDataFromDate(userId, currentMonth, currentYear).observe(this, new Observer<List<Revenue>>() {
             @Override
             public void onChanged(List<Revenue> revenues) {
                 updateRecyclerView(revenues);
             }
         });
 
-        add_account_fab.setOnClickListener(new View.OnClickListener() {
+        addAccountFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openAddDialog();
@@ -69,27 +69,27 @@ public class Accounts extends AppCompatActivity implements AddDialog.AddDialogLi
     }
 
     private void openAddDialog() {
-        AddDialog dialog = new AddDialog(user_id, 1);
+        AddDialog dialog = new AddDialog(userId, 1);
         dialog.show(getSupportFragmentManager(), "Add Dialog");
     }
 
     private void updateRecyclerView(List<Revenue> revenues) {
         ArrayList<Revenue> arrayListRevenues = new ArrayList<>(revenues);
-        accountsRecyclerAdapter = new AccountsRecyclerAdapter(arrayListRevenues, user_id, accountsViewModel, current_month, current_year, this);
+        accountsRecyclerAdapter = new AccountsRecyclerAdapter(arrayListRevenues, userId, accountsViewModel, currentMonth, currentYear, this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         recyclerView.setAdapter(accountsRecyclerAdapter);
         recyclerView.getAdapter().notifyDataSetChanged();
     }
 
     private void findGraphicalElements() {
-        add_account_fab = findViewById(R.id.accounts_floatingActionButton);
+        addAccountFab = findViewById(R.id.accounts_floatingActionButton);
         recyclerView = findViewById(R.id.accounts_recyclerView);
     }
 
     @Override
     public void onPositiveButtonClick(int user_id, String name, BigDecimal value, String category) {
 
-        accountsViewModel.insertRevenue(new Revenue(user_id, name, value, current_month, current_year));
+        accountsViewModel.insertRevenue(new Revenue(user_id, name, value, currentMonth, currentYear));
         LiveData<BigDecimal> dataReturned = accountsViewModel.getTotalMoney(user_id);
        dataReturned.observe(this, new Observer<BigDecimal>() {
             @Override
@@ -108,14 +108,14 @@ public class Accounts extends AppCompatActivity implements AddDialog.AddDialogLi
 
     private void getUserId() {
         SharedPreferences sharedPreferences = getSharedPreferences(Register.SHARED_PREF, MODE_PRIVATE);
-        user_id = sharedPreferences.getInt(Register.USER_ID, 0);
+        userId = sharedPreferences.getInt(Register.USER_ID, 0);
     }
 
     private void getInformationFromIntent() {
         intent = getIntent();
         if (intent != null) {
-            current_month = intent.getStringExtra("month");
-            current_year = intent.getIntExtra("year", 0);
+            currentMonth = intent.getStringExtra("month");
+            currentYear = intent.getIntExtra("year", 0);
         }
     }
 

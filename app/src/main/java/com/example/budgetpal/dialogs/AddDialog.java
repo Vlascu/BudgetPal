@@ -25,19 +25,19 @@ public class AddDialog extends AppCompatDialogFragment {
 
     EditText name, amount;
 
-    String name_text, category;
+    String nameText, category;
 
     BigDecimal value;
 
     View customDialog;
 
-    Spinner category_spinner;
+    Spinner categorySpinner;
 
     AddDialogListener listener;
-    int user_id, option;
+    int userId, option;
 
-    public AddDialog(int user_id, int option) {
-        this.user_id = user_id;
+    public AddDialog(int userId, int option) {
+        this.userId = userId;
         this.option = option;
     }
 
@@ -69,9 +69,9 @@ public class AddDialog extends AppCompatDialogFragment {
                     if (name.getText().length() == 0 || amount.getText().length() == 0)
                         Toast.makeText(getContext(), "Insert all the data!", Toast.LENGTH_LONG).show();
                     else {
-                        name_text = name.getText().toString();
+                        nameText = name.getText().toString();
                         value = new BigDecimal(amount.getText().toString());
-                        listener.onPositiveButtonClick(user_id, name_text, value, "");
+                        listener.onPositiveButtonClick(userId, nameText, value, "");
                     }
                 }
             }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -85,7 +85,7 @@ public class AddDialog extends AppCompatDialogFragment {
             findGraphicalElements();
             changeHint(option);
             fillSpinner();
-            category_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                     category = (String) parent.getItemAtPosition(position);
@@ -107,10 +107,39 @@ public class AddDialog extends AppCompatDialogFragment {
                     if (name.getText().length() == 0 || amount.getText().length() == 0)
                         Toast.makeText(getContext(), "Insert all the data!", Toast.LENGTH_LONG).show();
                     else {
-                        name_text = name.getText().toString();
+                        nameText = name.getText().toString();
                         value = new BigDecimal(amount.getText().toString());
-                        listener.onPositiveButtonClick(user_id, name_text, value, category);
+                        listener.onPositiveButtonClick(userId, nameText, value, category);
                     }
+                }
+            });
+        } else if (option == 3) {
+            customDialog = getLayoutInflater().inflate(R.layout.budget_add_dialog, null);
+            findGraphicalElements();
+            fillSpinner();
+            categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    category = (String) parent.getItemAtPosition(position);
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+            builder.setView(customDialog).setTitle("Budget information").setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                }
+            }).setPositiveButton("Add", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    if (amount.getText().length() == 0)
+                        Toast.makeText(getContext(), "Insert the value!", Toast.LENGTH_LONG).show();
+                    else
+                        listener.onPositiveButtonClick(userId, "", new BigDecimal(amount.getText().toString()), category);
                 }
             });
         }
@@ -122,7 +151,7 @@ public class AddDialog extends AppCompatDialogFragment {
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item,
                 getCategories());
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        category_spinner.setAdapter(arrayAdapter);
+        categorySpinner.setAdapter(arrayAdapter);
     }
 
     private void findGraphicalElements() {
@@ -132,7 +161,10 @@ public class AddDialog extends AppCompatDialogFragment {
         } else if (option == 2) {
             name = customDialog.findViewById(R.id.spending_addDialog_name);
             amount = customDialog.findViewById(R.id.spending_addDialog_value);
-            category_spinner = customDialog.findViewById(R.id.addDialog_spinner);
+            categorySpinner = customDialog.findViewById(R.id.addDialog_spinner);
+        } else if (option == 3) {
+            categorySpinner = customDialog.findViewById(R.id.budget_add_category_spinner);
+            amount = customDialog.findViewById(R.id.budget_add_dialog_value);
         }
     }
 
