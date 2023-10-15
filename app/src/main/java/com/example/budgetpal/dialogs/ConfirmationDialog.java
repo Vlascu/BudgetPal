@@ -12,11 +12,11 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 
 public class ConfirmationDialog extends AppCompatDialogFragment {
 
-    private final int user_id;
+    private final int userId;
 
     private DialogListener listener;
-    public ConfirmationDialog(int user_id) {
-        this.user_id = user_id;
+    public ConfirmationDialog(int userId) {
+        this.userId = userId;
     }
 
     public interface DialogListener {
@@ -40,7 +40,7 @@ public class ConfirmationDialog extends AppCompatDialogFragment {
         builder.setTitle("Are you sure you want to delete this account?").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                listener.onPositiveButtonClick(1,user_id);
+                listener.onPositiveButtonClick(1, userId);
             }
         }).setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override

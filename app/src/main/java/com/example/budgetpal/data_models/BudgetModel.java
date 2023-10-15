@@ -5,22 +5,22 @@ import java.math.BigDecimal;
 public class BudgetModel {
 
     private int image;
-    private BigDecimal current_progress, max_budget;
-    private String category_name;
+    private BigDecimal currentProgress, maxBudget;
+    private String categoryName;
 
-    public BudgetModel(int image, BigDecimal current_progress, String category_name, BigDecimal max_budget) {
+    public BudgetModel(int image, BigDecimal currentProgress, String categoryName, BigDecimal maxBudget) {
         this.image = image;
-        this.current_progress = new BigDecimal(current_progress.toString());
-        this.category_name = category_name;
-        this.max_budget = new BigDecimal(max_budget.toString());
+        this.currentProgress = new BigDecimal(currentProgress.toString());
+        this.categoryName = categoryName;
+        this.maxBudget = new BigDecimal(maxBudget.toString());
     }
 
-    public BigDecimal getMax_budget() {
-        return max_budget;
+    public BigDecimal getMaxBudget() {
+        return maxBudget;
     }
 
-    public void setMax_budget(BigDecimal max_budget) {
-        this.max_budget = new BigDecimal(max_budget.toString());
+    public void setMaxBudget(BigDecimal maxBudget) {
+        this.maxBudget = new BigDecimal(maxBudget.toString());
     }
 
     public int getImage() {
@@ -31,20 +31,20 @@ public class BudgetModel {
         this.image = image;
     }
 
-    public BigDecimal getCurrent_progress() {
-        return current_progress;
+    public BigDecimal getCurrentProgress() {
+        return currentProgress;
     }
 
-    public void setCurrent_progress(BigDecimal current_progress) {
-        this.current_progress = new BigDecimal(current_progress.toString());
+    public void setCurrentProgress(BigDecimal currentProgress) {
+        this.currentProgress = new BigDecimal(currentProgress.toString());
     }
 
 
-    public String getCategory_name() {
-        return category_name;
+    public String getCategoryName() {
+        return categoryName;
     }
 
-    public void setCategory_name(String category_name) {
-        this.category_name = category_name;
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 }

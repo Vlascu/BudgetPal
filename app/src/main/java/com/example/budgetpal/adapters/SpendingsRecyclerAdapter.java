@@ -24,23 +24,23 @@ public class SpendingsRecyclerAdapter extends RecyclerView.Adapter<SpendingsRecy
     private final SpendingsViewModel spendingsViewModel;
     private final int year;
     private final int day;
-    private final int user_id;
+    private final int userId;
     private final String month;
 
-    private BigDecimal product_value;
+    private BigDecimal productValue;
 
-    private String product_name;
+    private String productName;
 
     private final LifecycleOwner lifecycleOwner;
 
-    public SpendingsRecyclerAdapter(ArrayList<SpendingsTable> data, SpendingsViewModel spendingsViewModel, int year, int day, String month, int user_id
+    public SpendingsRecyclerAdapter(ArrayList<SpendingsTable> data, SpendingsViewModel spendingsViewModel, int year, int day, String month, int userId
     , LifecycleOwner lifecycleOwner) {
         this.data = data;
         this.spendingsViewModel = spendingsViewModel;
         this.year = year;
         this.day = day;
         this.month = month;
-        this.user_id = user_id;
+        this.userId = userId;
         this.lifecycleOwner = lifecycleOwner;
     }
 
@@ -56,8 +56,8 @@ public class SpendingsRecyclerAdapter extends RecyclerView.Adapter<SpendingsRecy
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.item_name.setText(data.get(position).getProduct_name());
         holder.item_value.setText(String.format("%.2f",data.get(position).getProduct_value()));
-        product_name=holder.item_name.getText().toString();
-        product_value=new BigDecimal(holder.item_value.getText().toString().replace(",","."));
+        productName =holder.item_name.getText().toString();
+        productValue =new BigDecimal(holder.item_value.getText().toString().replace(",","."));
     }
 
     @Override
@@ -81,13 +81,13 @@ public class SpendingsRecyclerAdapter extends RecyclerView.Adapter<SpendingsRecy
                    int adapterPosition = getAdapterPosition();
                    if(adapterPosition!=RecyclerView.NO_POSITION)
                    {
-                        spendingsViewModel.deleteSpending(user_id,day,month,year,product_name);
-                       LiveData<BigDecimal> totalMoney = spendingsViewModel.getTotalMoney(user_id);
+                        spendingsViewModel.deleteSpending(userId,day,month,year, productName);
+                       LiveData<BigDecimal> totalMoney = spendingsViewModel.getTotalMoney(userId);
                        totalMoney.observe(lifecycleOwner, new Observer<BigDecimal>() {
                            @Override
                            public void onChanged(BigDecimal value) {
                                 totalMoney.removeObserver(this);
-                                spendingsViewModel.updateTotalMoneyInDB(user_id,value.add(product_value));
+                                spendingsViewModel.updateTotalMoneyInDB(userId,value.add(productValue));
                            }
                        });
                        notifyItemRemoved(adapterPosition);

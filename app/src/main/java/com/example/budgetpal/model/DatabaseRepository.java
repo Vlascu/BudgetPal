@@ -258,4 +258,8 @@ public class DatabaseRepository {
     {
         return revenueDAO.getAllRevenuesValuesByMonth(user_id,month,year);
     }
+    public LiveData<BigDecimal> getBudgetValue(int userID, String month, int year, String category)
+    {
+        return budgetDAO.getBudgetValue(userID,month,year, category);
+    }
 }

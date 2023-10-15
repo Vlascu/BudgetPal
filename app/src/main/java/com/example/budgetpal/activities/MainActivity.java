@@ -46,16 +46,16 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements ConfirmationDialog.DialogListener {
 
-    private Spinner date_spinner;
+    private Spinner dateSpinner;
     private ConstraintLayout spendingTab, budgetTab, accountsTab;
 
     private MainActivityViewModel mainActivityViewModel;
 
-    private TextView total_money_text, top_account, top_account_value;
+    private TextView totalMoneyText, topAccount, topAccountValue;
 
-    private String current_month;
+    private String currentMonth;
 
-    private int current_year;
+    private int currentYear;
 
     private BarChart spendingsBarChart;
 
@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity implements ConfirmationDialo
             }
         });
 
-        date_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        dateSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String date = (String) parent.getItemAtPosition(position);
@@ -122,8 +122,8 @@ public class MainActivity extends AppCompatActivity implements ConfirmationDialo
     private void getMonthAndYear(String date) {
 
         String[] separated = date.split(" ");
-        current_month=separated[0];
-        current_year=Integer.parseInt(separated[1]);
+        currentMonth = separated[0];
+        currentYear = Integer.parseInt(separated[1]);
 
     }
 
@@ -149,13 +149,13 @@ public class MainActivity extends AppCompatActivity implements ConfirmationDialo
     }
 
     private void findGraphicalElements() {
-        date_spinner = findViewById(R.id.date_spinner);
+        dateSpinner = findViewById(R.id.date_spinner);
         spendingTab = findViewById(R.id.spendingTab);
         budgetTab = findViewById(R.id.budgetTab);
         accountsTab = findViewById(R.id.accountsTab);
-        total_money_text = findViewById(R.id.current_balance_value);
-        top_account = findViewById(R.id.accounts_tab_account_name);
-        top_account_value = findViewById(R.id.accounts_tab_account_value);
+        totalMoneyText = findViewById(R.id.current_balance_value);
+        topAccount = findViewById(R.id.accounts_tab_account_name);
+        topAccountValue = findViewById(R.id.accounts_tab_account_value);
         spendingsBarChart = findViewById(R.id.spending_tab_chart);
     }
 
@@ -164,7 +164,7 @@ public class MainActivity extends AppCompatActivity implements ConfirmationDialo
         ArrayAdapter<String> dateSpinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item,
                 strings);
         dateSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        date_spinner.setAdapter(dateSpinnerAdapter);
+        dateSpinner.setAdapter(dateSpinnerAdapter);
     }
 
     private void startCustomAnimation(View v) {
@@ -183,19 +183,19 @@ public class MainActivity extends AppCompatActivity implements ConfirmationDialo
         SimpleDateFormat monthFormat = new SimpleDateFormat("MMMM", Locale.getDefault());
         SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy", Locale.getDefault());
 
-        current_month = monthFormat.format(currentDate);
+        currentMonth = monthFormat.format(currentDate);
 
-        current_year = Integer.parseInt(yearFormat.format(currentDate));
+        currentYear = Integer.parseInt(yearFormat.format(currentDate));
 
-        String current_date = current_month + " " + current_year;
-        LiveData<String> checkedDate = mainActivityViewModel.getDates(getIdFromPreferences(),current_date);
+        String current_date = currentMonth + " " + currentYear;
+        LiveData<String> checkedDate = mainActivityViewModel.getDates(getIdFromPreferences(), current_date);
 
         checkedDate.observe(this, new Observer<String>() {
             @Override
             public void onChanged(String s) {
                 checkedDate.removeObserver(this);
-                if(s==null)
-                    mainActivityViewModel.setDates(current_date,getIdFromPreferences());
+                if (s == null)
+                    mainActivityViewModel.setDates(current_date, getIdFromPreferences());
             }
         });
 
@@ -203,8 +203,7 @@ public class MainActivity extends AppCompatActivity implements ConfirmationDialo
         allDates.observe(this, new Observer<List<String>>() {
             @Override
             public void onChanged(List<String> strings) {
-                if(strings!=null)
-                {
+                if (strings != null) {
                     ArrayList<String> arrayStrings = new ArrayList<>(strings);
                     updateSpinner(arrayStrings);
                 }
@@ -239,69 +238,64 @@ public class MainActivity extends AppCompatActivity implements ConfirmationDialo
     }
 
     private void putExtraMonthAndYear(Intent i) {
-        i.putExtra("month", current_month);
-        i.putExtra("year", current_year);
+        i.putExtra("month", currentMonth);
+        i.putExtra("year", currentYear);
     }
 
     private void setTotalMoneyText() {
         mainActivityViewModel.getTotalMoney(getIdFromPreferences()).observe(this, new Observer<BigDecimal>() {
             @Override
             public void onChanged(BigDecimal bigDecimal) {
-                if (!bigDecimal.equals(BigDecimal.ZERO)) {
-                    mainActivityViewModel.getTotalMoney(getIdFromPreferences()).removeObserver(this);
-                    total_money_text.setText(String.format(Locale.getDefault(), "%.2f", bigDecimal));
-                } else
-                    total_money_text.setText(String.format(Locale.getDefault(), "%.2f", BigDecimal.ZERO));
+                if (bigDecimal != null) {
+                    if (!bigDecimal.equals(BigDecimal.ZERO)) {
+                        mainActivityViewModel.getTotalMoney(getIdFromPreferences()).removeObserver(this);
+                        totalMoneyText.setText(String.format(Locale.getDefault(), "%.2f", bigDecimal));
+                    } else
+                        totalMoneyText.setText(String.format(Locale.getDefault(), "%.2f", BigDecimal.ZERO));
+                }
 
             }
         });
     }
 
     private void setTopAccountAndValue() {
-        LiveData<Revenue> returnedData = mainActivityViewModel.getTopAccount(getIdFromPreferences(), current_month, current_year);
+        LiveData<Revenue> returnedData = mainActivityViewModel.getTopAccount(getIdFromPreferences(), currentMonth, currentYear);
         returnedData.observe(this, new Observer<Revenue>() {
             @Override
             public void onChanged(Revenue revenue) {
                 if (revenue != null) {
-                    top_account.setText(revenue.getAccount());
-                    top_account_value.setText(String.format(Locale.getDefault(), "%.2f", revenue.getAccount_amount()));
-                }
-                else
-                {
-                    top_account.setText(R.string.no_account_in_tab);
-                    top_account_value.setText("0.0");
+                    topAccount.setText(revenue.getAccount());
+                    topAccountValue.setText(String.format(Locale.getDefault(), "%.2f", revenue.getAccount_amount()));
+                } else {
+                    topAccount.setText(R.string.no_account_in_tab);
+                    topAccountValue.setText("0.0");
                 }
             }
         });
     }
-    private Float calculateTotalSpendingsCategoryValues(List<BigDecimal> values)
-    {
+
+    private Float calculateTotalSpendingsCategoryValues(List<BigDecimal> values) {
         BigDecimal total = BigDecimal.ZERO;
-        for (BigDecimal value : values)
-        {
+        for (BigDecimal value : values) {
             total = total.add(value);
         }
         return Float.parseFloat(total.toString());
     }
-    private void setSpendingsChartData()
-    {
+
+    private void setSpendingsChartData() {
         List<BarEntry> entries = new ArrayList<>();
-        final String[] categories = {"Restaurants", "Food", "Entertainment","Transport", "Services","Shopping","Investments"};
-        for(int index=0;index<categories.length;index++)
-        {
+        final String[] categories = {"Restaurants", "Food", "Entertainment", "Transport", "Services", "Shopping", "Investments"};
+        for (int index = 0; index < categories.length; index++) {
             final int finalIndex = index;
-            LiveData<List<BigDecimal>> values = mainActivityViewModel.getAllValuesBasedOnCategory(getIdFromPreferences(),categories[index]);
+            LiveData<List<BigDecimal>> values = mainActivityViewModel.getAllValuesBasedOnCategory(getIdFromPreferences(), categories[index]);
             values.observe(this, new Observer<List<BigDecimal>>() {
                 @Override
                 public void onChanged(List<BigDecimal> allValues) {
                     values.removeObserver(this);
-                    if(allValues!=null)
-                    {
-                        entries.add(new BarEntry(finalIndex,calculateTotalSpendingsCategoryValues(allValues)));
-                    }
-                    else
-                    {
-                        entries.add(new BarEntry(finalIndex,0));
+                    if (allValues != null) {
+                        entries.add(new BarEntry(finalIndex, calculateTotalSpendingsCategoryValues(allValues)));
+                    } else {
+                        entries.add(new BarEntry(finalIndex, 0));
                     }
                 }
             });
