@@ -128,7 +128,7 @@ public class AddDialog extends AppCompatDialogFragment {
 
                 }
             });
-            builder.setView(customDialog).setTitle("Budget information").setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            builder.setView(customDialog).setTitle("Set max budget").setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
 

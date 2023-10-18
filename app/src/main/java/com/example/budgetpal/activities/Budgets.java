@@ -25,7 +25,7 @@ public class Budgets extends AppCompatActivity implements AddDialog.AddDialogLis
 
     private BudgetsViewModel budgetsViewModel;
 
-    private String current_month;
+    private String currentMonth;
     private int currentYear, userId;
 
     private FloatingActionButton fab;
@@ -52,7 +52,7 @@ public class Budgets extends AppCompatActivity implements AddDialog.AddDialogLis
     }
     private void initializeDataAndUpdateRecycler()
     {
-        budgetsViewModel.getAllBudgets(userId,current_month, currentYear, this);
+        budgetsViewModel.getAllBudgets(userId, currentMonth, currentYear, this);
         budgetsViewModel.getTheBudgetList().observe(this, new Observer<ArrayList<BudgetModel>>() {
             @Override
             public void onChanged(ArrayList<BudgetModel> budgets) {
@@ -73,7 +73,7 @@ public class Budgets extends AppCompatActivity implements AddDialog.AddDialogLis
 
     @Override
     public void onPositiveButtonClick(int user_id, String name, BigDecimal value, String category) {
-        budgetsViewModel.insertBudget(user_id,current_month, currentYear,category,value);
+        budgetsViewModel.insertBudget(user_id, currentMonth, currentYear,category,value);
         initializeDataAndUpdateRecycler();
     }
 
@@ -85,7 +85,7 @@ public class Budgets extends AppCompatActivity implements AddDialog.AddDialogLis
     private void getInformationFromIntent() {
         Intent intent = getIntent();
         if (intent != null) {
-            current_month = intent.getStringExtra("month");
+            currentMonth = intent.getStringExtra("month");
             currentYear = intent.getIntExtra("year", 0);
         }
     }

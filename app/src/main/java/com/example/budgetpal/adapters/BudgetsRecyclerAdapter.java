@@ -41,7 +41,6 @@ public class BudgetsRecyclerAdapter extends RecyclerView.Adapter<BudgetsRecycler
     }
 
     private String calculatePercentage(int position) {
-        //Todo: fix division by 0
         if(data.get(position).getMaxBudget().compareTo(BigDecimal.ZERO)>0)
             return String.valueOf(((data.get(position).getCurrentProgress().divide(data.get(position).getMaxBudget()))
                 .multiply(new BigDecimal(100))).intValue())+'%';
