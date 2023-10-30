@@ -14,6 +14,8 @@ import com.example.budgetpal.R;
 import com.example.budgetpal.data_models.BudgetModel;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class BudgetsRecyclerAdapter extends RecyclerView.Adapter<BudgetsRecyclerAdapter.MyViewHolder> {
@@ -41,11 +43,16 @@ public class BudgetsRecyclerAdapter extends RecyclerView.Adapter<BudgetsRecycler
     }
 
     private String calculatePercentage(int position) {
-        if(data.get(position).getMaxBudget().compareTo(BigDecimal.ZERO)>0)
-            return String.valueOf(((data.get(position).getCurrentProgress().divide(data.get(position).getMaxBudget()))
-                .multiply(new BigDecimal(100))).intValue())+'%';
-        else
+        BigDecimal currentProgress = data.get(position).getCurrentProgress();
+        BigDecimal maxBudget = data.get(position).getMaxBudget();
+
+        if (maxBudget.compareTo(BigDecimal.ZERO) > 0) {
+            BigDecimal percentage = currentProgress.divide(maxBudget, 4, RoundingMode.HALF_UP);
+            DecimalFormat decimalFormat = new DecimalFormat("0.0%");
+            return decimalFormat.format(percentage);
+        } else {
             return "0%";
+        }
     }
 
     @Override

@@ -21,7 +21,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
-public class Budgets extends AppCompatActivity implements AddDialog.AddDialogListener {
+public class Budgets extends AppCompatActivity implements AddDialog.AddDialogListener{
 
     private BudgetsViewModel budgetsViewModel;
 
@@ -31,6 +31,8 @@ public class Budgets extends AppCompatActivity implements AddDialog.AddDialogLis
     private FloatingActionButton fab;
 
     private RecyclerView recyclerView;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,9 +42,13 @@ public class Budgets extends AppCompatActivity implements AddDialog.AddDialogLis
         findGraphicalElements();
         getIdFromPreferences();
         getInformationFromIntent();
-        initializeDataAndUpdateRecycler();
+        budgetsViewModel.getTheBudgetList().observe(this, new Observer<ArrayList<BudgetModel>>() {
+            @Override
+            public void onChanged(ArrayList<BudgetModel> budgets) {
+                updateRecyclerView(budgets);
+            }
+        });
 
-        //Todo: check if a budget exists, fix recycler view not updating when adding
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,9 +56,11 @@ public class Budgets extends AppCompatActivity implements AddDialog.AddDialogLis
             }
         });
     }
+
     private void initializeDataAndUpdateRecycler()
     {
         budgetsViewModel.getAllBudgets(userId, currentMonth, currentYear, this);
+
         budgetsViewModel.getTheBudgetList().observe(this, new Observer<ArrayList<BudgetModel>>() {
             @Override
             public void onChanged(ArrayList<BudgetModel> budgets) {

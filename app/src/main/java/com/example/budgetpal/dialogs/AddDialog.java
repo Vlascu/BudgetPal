@@ -23,18 +23,18 @@ import java.util.ArrayList;
 
 public class AddDialog extends AppCompatDialogFragment {
 
-    EditText name, amount;
+    private EditText name, amount;
 
-    String nameText, category;
+    private String nameText, category;
 
-    BigDecimal value;
+    private BigDecimal value;
 
-    View customDialog;
+    private View customDialog;
 
-    Spinner categorySpinner;
+    private Spinner categorySpinner;
 
-    AddDialogListener listener;
-    int userId, option;
+    public AddDialogListener listener;
+    private int userId, option;
 
     public AddDialog(int userId, int option) {
         this.userId = userId;

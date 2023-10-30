@@ -26,7 +26,17 @@ public class BudgetsViewModel extends AndroidViewModel {
     final private DatabaseRepository databaseRepository;
     private ArrayList<BudgetModel> budgetsList;
     private MutableLiveData<ArrayList<BudgetModel>> mutableBudgetsList;
-    private BigDecimal allSpendingsSum , maxBudget;
+    private interface Callback {
+        void onComplete(BigDecimal allSpendingsSum, BigDecimal maxBudget);
+    }
+
+    private interface MaxBudgetCallback {
+        void onMaxBudget(BigDecimal maxBudget);
+    }
+
+    private interface SpendingsCallback {
+        void onSpendingsSum(BigDecimal allSpendingsSum);
+    }
 
     public BudgetsViewModel(@NonNull Application application) {
         super(application);
@@ -56,85 +66,89 @@ public class BudgetsViewModel extends AndroidViewModel {
 
     private void buildBudgetsList(List<BudgetTable> budgetTables, int userId, String month, int year, LifecycleOwner lifecycleOwner) {
         budgetsList.clear();
+        mutableBudgetsList.setValue(budgetsList);
         for (BudgetTable budget : budgetTables) {
-            allSpendingsSum = BigDecimal.ZERO;
-            maxBudget = BigDecimal.ZERO;
             switch (budget.getCategory()) {
                 case "Food": {
-                    initializeMaxBudgetAndAllSpendings(userId,month,year,"Food",lifecycleOwner);
-                    budgetsList.add(new BudgetModel(R.drawable.food, allSpendingsSum, "Food", maxBudget));
+                    processCategory(userId,month,year,"Food",lifecycleOwner, R.drawable.food);
                     break;
                 }
                 case "Transport": {
-                    initializeMaxBudgetAndAllSpendings(userId,month,year,"Transport",lifecycleOwner);
-                    budgetsList.add(new BudgetModel(R.drawable.transport, allSpendingsSum, "Transport", maxBudget));
+                    processCategory(userId,month,year,"Transport",lifecycleOwner, R.drawable.transport);
                     break;
                 }
                 case "Shopping": {
-                    initializeMaxBudgetAndAllSpendings(userId,month,year,"Shopping",lifecycleOwner);
-                    budgetsList.add(new BudgetModel(R.drawable.shopping, allSpendingsSum, "Shopping", maxBudget));
+                    processCategory(userId,month,year,"Shopping",lifecycleOwner, R.drawable.shopping);
                     break;
                 }
                 case "Services": {
-                    initializeMaxBudgetAndAllSpendings(userId,month,year,"Services",lifecycleOwner);
-                    budgetsList.add(new BudgetModel(R.drawable.services, allSpendingsSum, "Services", maxBudget));
+                    processCategory(userId,month,year,"Services",lifecycleOwner,R.drawable.services);
                     break;
                 }
                 case "Restaurants": {
-                    initializeMaxBudgetAndAllSpendings(userId,month,year,"Restaurants",lifecycleOwner);
-                    budgetsList.add(new BudgetModel(R.drawable.restaurants, allSpendingsSum, "Restaurants", maxBudget));
-                    //Todo: maxBudget resets to 0 after asigning value to it
-                    Log.i("Max budget after insert is: ",maxBudget.toString());
+                    processCategory(userId,month,year,"Restaurants",lifecycleOwner, R.drawable.restaurants);
                     break;
                 }
                 case "Investments": {
-                    initializeMaxBudgetAndAllSpendings(userId,month,year,"Investments",lifecycleOwner);
-                    budgetsList.add(new BudgetModel(R.drawable.investements, allSpendingsSum, "Investments", maxBudget));
+                    processCategory(userId,month,year,"Investments",lifecycleOwner, R.drawable.investements);
                     break;
                 }
                 case "Entertainment": {
-                    initializeMaxBudgetAndAllSpendings(userId,month,year,"Entertainment",lifecycleOwner);
-                    budgetsList.add(new BudgetModel(R.drawable.entertaiment, allSpendingsSum, "Entertainment", maxBudget));
+                    processCategory(userId,month,year,"Entertainment",lifecycleOwner, R.drawable.entertaiment);
                     break;
                 }
             }
         }
-        for (BudgetModel model : budgetsList)
-        {
-            Log.i("Budget value: ",model.getMaxBudget().toString());
-        }
         mutableBudgetsList.setValue(budgetsList);
     }
-    private void initializeMaxBudgetAndAllSpendings(int userId, String month, int year, String category, LifecycleOwner lifecycleOwner)
-    {
-        getAllSpendings(userId, month, year, category, lifecycleOwner);
-        Log.i("Sum is: ", allSpendingsSum.toString());
-        initializeMaxBudget(userId, month, year, category, lifecycleOwner);
+    private void processCategory(int userId, String month, int year, String category, LifecycleOwner lifecycleOwner, int categoryImageResource) {
+        initializeMaxBudgetAndAllSpendings(userId, month, year, category, lifecycleOwner, new Callback() {
+            //Todo: insereaza noul model intr-o baza de date si extrage-l de acolo pentru a evite duplicara de date
+            // ( un buget model pt fiecare buget )
+            @Override
+            public void onComplete(BigDecimal allSpendingsSum, BigDecimal maxBudget) {
+                budgetsList.add(new BudgetModel(categoryImageResource, allSpendingsSum, category, maxBudget));
+            }
+        });
     }
-    private void initializeMaxBudget(int userId, String month, int year, String category, LifecycleOwner lifecycleOwner) {
+    private void initializeMaxBudgetAndAllSpendings(int userId, String month, int year, String category, LifecycleOwner lifecycleOwner, Callback callback) {
+        initializeMaxBudget(userId, month, year, category, lifecycleOwner, new MaxBudgetCallback() {
+            @Override
+            public void onMaxBudget(BigDecimal maxBudget) {
+                getAllSpendings(userId, month, year, category, lifecycleOwner, new SpendingsCallback() {
+                    @Override
+                    public void onSpendingsSum(BigDecimal allSpendingsSum) {
+                        callback.onComplete(allSpendingsSum, maxBudget);
+                    }
+                });
+            }
+        });
+    }
+    private void initializeMaxBudget(int userId, String month, int year, String category, LifecycleOwner lifecycleOwner, MaxBudgetCallback callback) {
         LiveData<BigDecimal> maxBudgetObservable = databaseRepository.getBudgetValue(userId, month, year, category);
         maxBudgetObservable.observe(lifecycleOwner, new Observer<BigDecimal>() {
             @Override
             public void onChanged(BigDecimal value) {
                 maxBudgetObservable.removeObserver(this);
-                maxBudget = value;
-                Log.i("Max budget for " + category + " is: ", maxBudget.toString());
+                callback.onMaxBudget(value);
             }
         });
     }
 
-    private void getAllSpendings(int userId, String month, int year, String category, LifecycleOwner lifecycleOwner) {
+    private void getAllSpendings(int userId, String month, int year, String category, LifecycleOwner lifecycleOwner, SpendingsCallback callback) {
         databaseRepository.getAllSpendingsFromMonth(userId, month, year, category).observe(lifecycleOwner, new Observer<List<BigDecimal>>() {
             @Override
             public void onChanged(List<BigDecimal> values) {
-                calculateSum(values);
+                callback.onSpendingsSum(calculateSum(values));
             }
         });
     }
 
-    private void calculateSum(List<BigDecimal> values) {
+    private BigDecimal calculateSum(List<BigDecimal> values) {
+        BigDecimal allSpendingsSum = BigDecimal.ZERO;
         for (BigDecimal number : values) {
             allSpendingsSum = allSpendingsSum.add(number);
         }
+        return allSpendingsSum;
     }
 }
