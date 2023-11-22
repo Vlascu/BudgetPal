@@ -42,12 +42,7 @@ public class Budgets extends AppCompatActivity implements AddDialog.AddDialogLis
         findGraphicalElements();
         getIdFromPreferences();
         getInformationFromIntent();
-        budgetsViewModel.getTheBudgetList().observe(this, new Observer<ArrayList<BudgetModel>>() {
-            @Override
-            public void onChanged(ArrayList<BudgetModel> budgets) {
-                updateRecyclerView(budgets);
-            }
-        });
+        initializeDataAndUpdateRecycler();
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
